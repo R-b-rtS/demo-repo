@@ -2,20 +2,20 @@
 
 #This will be the person class where we enter all their information to use the various methods we will create
 
-class Person:
-    def __init__(self, loan: float, duration: int, interest_rate: float, repayment_freq: str):
+class Loan:
+    def __init__(self, amount: float, duration: int, interest_rate: float, repayment_freq: str):
         """
-        Loan: The total loan amount in dollars
+        amount: The total loan amount in dollars
         Duration: The length of the mortgage
         Interest rate: Current annual interest rate as a percentage
         Repayment freq: How often you pay the mortgage: Weekly, Fortnightly, Monthly
         """
-        self.loan = loan
+        self.amount = amount
         self.duration = duration
         self.interest_rate = interest_rate
         self.repayment_freq = repayment_freq
     def __repr__(self):
-        return f"Hello your loan amount is ${self.loan}. The duration of your loan is {self.duration} years at an interest rate of {self.interest_rate}% p.a. Because you are making {self.repayment_freq} payments your repayments will be ${self.repayment_calc(): .2f}."
+        return f"Hello your loan amount is ${self.amount}. The duration of your loan is {self.duration} years at an interest rate of {self.interest_rate}% p.a. Because you are making {self.repayment_freq} payments your repayments will be ${self.repayment_calc(): .2f}."
     def repayment_frequency(self):
         frequencies = {
             "Weekly": 52,
@@ -30,7 +30,7 @@ class Person:
     def repayment_calc(self):
         monthly_interest = self.monthly_interest()
         repayment_frequency = self.repayment_frequency()
-        repayments = (self.loan * monthly_interest * (1 + monthly_interest)** repayment_frequency) / ((1 + monthly_interest) ** repayment_frequency - 1)
+        repayments = (self.amount * monthly_interest * (1 + monthly_interest)** repayment_frequency) / ((1 + monthly_interest) ** repayment_frequency - 1)
         
         #Adjust repayment based on frequency
         if self.repayment_freq == "Weekly":
@@ -40,6 +40,6 @@ class Person:
         else:
             return repayments #the default formula calculates monthly repayments
 
-person1 = Person(200000, 30, 6.24, "Weekly")
+person1 = Loan(200000, 30, 6.24, "Weekly")
 print(person1)
 
