@@ -15,7 +15,7 @@ class Person:
         self.interest_rate = interest_rate
         self.repayment_freq = repayment_freq
     def __repr__(self):
-        return f"Hello your loan amount is " + str(self.loan) + ". The duration of your loan is"
+        return f"Hello your loan amount is ${self.loan}. The duration of your loan is {self.duration} years at an interest rate of {self.interest_rate}% p.a. Because you are making {self.repayment_freq} payments your repayments will be ${self.repayment_calc(): .2f}."
     def repayment_frequency(self):
         frequencies = {
             "Weekly": 52,
@@ -28,9 +28,18 @@ class Person:
         return self.interest_rate / 100 / 12
     
     def repayment_calc(self):
-        repayments = (self.loan * self.monthly_interest() * (1 + self.monthly_interest())** self.repayment_frequency()) / ((1 + self.monthly_interest()) ** self.repayment_frequency() - 1)
-        return repayments
+        monthly_interest = self.monthly_interest()
+        repayment_frequency = self.repayment_frequency()
+        repayments = (self.loan * monthly_interest * (1 + monthly_interest)** repayment_frequency) / ((1 + monthly_interest) ** repayment_frequency - 1)
+        
+        #Adjust repayment based on frequency
+        if self.repayment_freq == "Weekly":
+            return repayments / 4.33 #This converts the payment to weekly
+        elif self.repayment_freq == "Fortnightly":
+            return repayments / 2.17 #This converts the payment to fortnightly
+        else:
+            return repayments #the default formula calculates monthly repayments
 
-person1 = Person(200000, 30, 6.24, "Monthly")
+person1 = Person(200000, 30, 6.24, "Weekly")
 print(person1)
-print(person1.repayment_calc())
+
