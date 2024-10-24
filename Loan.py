@@ -43,8 +43,23 @@ class Loan:
     def lifetime_payments(self): #this shows them how much they pay back over the life of the loan
         return self.repayment_calc() * self.repayment_frequency()
     
+    def lifetime_interest(self):
+        return self.lifetime_payments() - self.amount
     
+    def new_term(self, extra_payment):
+        total_payment = self.repayment_calc() + extra_payment
+        balance = self.amount
+        time = 0
+
+        while balance > 0:
+            interest = balance * self.monthly_interest()
+            balance = balance - (total_payment - interest)
+            time += 1
+        return time
+
 
 person1 = Loan(200000, 30, 6.24, "Monthly")
 print(person1)
+extra_payment = person1.new_term(100)
+print(extra_payment)
 
