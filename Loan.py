@@ -1,6 +1,6 @@
 #This will be a home loan repayment estimator and timeline estimator if certain amounts are paid.
 
-#This will be the person class where we enter all their information to use the various methods we will create
+#This will be the Loan class where we enter all the loan information to use the various methods we will create
 
 class Loan:
     def __init__(self, amount: float, duration: int, interest_rate: float, repayment_freq: str):
@@ -39,7 +39,12 @@ class Loan:
             return repayments / 2.17 #This converts the payment to fortnightly
         else:
             return repayments #the default formula calculates monthly repayments
+        
+    def lifetime_payments(self): #this shows them how much they pay back over the life of the loan
+        return self.repayment_calc() * self.repayment_frequency()
+    
+    
 
-person1 = Loan(200000, 30, 6.24, "Weekly")
+person1 = Loan(200000, 30, 6.24, "Monthly")
 print(person1)
 
