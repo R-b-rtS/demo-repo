@@ -5,7 +5,7 @@
 class Loan:
     def __init__(self, amount: float, duration: int, interest_rate: float, repayment_freq: str):
         """
-        amount: The total loan amount in dollars
+        Amount: The total loan amount in dollars
         Duration: The length of the mortgage
         Interest rate: Current annual interest rate as a percentage
         Repayment freq: How often you pay the mortgage: Weekly, Fortnightly, Monthly
